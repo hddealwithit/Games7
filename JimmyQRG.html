@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Schoology</title>
+    <link rel="icon" href="https://asset-cdn.schoology.com/sites/all/themes/schoology_theme/favicon.ico" type="image/x-icon">
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: #000;
+        }
+        iframe {
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+        #panic-overlay {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <iframe id="game-frame" src="https://jimmyqrg.github.io/game-files/deltarune/index.html"></iframe>
+
+    <script>
+        /** * PANIC KEY SCRIPT 
+         * Pressing "Shift" (Right Shift specifically in the original) 
+         * will redirect you to a safe site immediately.
+         */
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Shift") { 
+                window.location.href = "https://google.com";
+            }
+        });
+
+        /** * TAB CLOAKING 
+         * Even if you switch tabs, this ensures the title stays "Schoology"
+         */
+        window.addEventListener('blur', () => {
+            document.title = "Home | Schoology";
+        });
+        window.addEventListener('focus', () => {
+            document.title = "Home | Schoology";
+        });
+    </script>
+</body>
+</html>
