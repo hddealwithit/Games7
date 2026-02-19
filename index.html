@@ -87,7 +87,6 @@ let name=file.replace(".html","")
              .replace(/cl/gi,"")
              .replace(/([A-Z])/g," $1")
              .trim();
-
 let div=document.createElement("div");
 div.className="game-item";
 div.textContent=name;
@@ -96,29 +95,36 @@ gameList.appendChild(div);
 });
 
 /* =========================
-   AUTH SYSTEM
+   AUTH LAYER
 ========================= */
 
-// Neutral dataset strings (noise)
-const dataset = [
-"alpha23","vectorX","gamma9","lambdaCore","orbit77",
-"fluxNode","cipher19","deltaZone","omegaLoop","thetaGrid",
-"matrix88","sigmaFlow","novaPulse","ionTrail","quantum5",
-"zenithPath","neonDrive","cosmoRay","binaryArc","vertex11"
-];
-
-// Actual password fragments
-const fragments = ["sjdhg","kwae","ufdf","kid"];
-
-function assemble(){
-return fragments.join("");
+// Credential-like noise pool
+const credentialPool = [];
+for(let i=0;i<99;i++){
+credentialPool.push(
+"Pass_word_"+Math.random().toString(36).substring(2,10)
+);
 }
+
+// Encoded segments (shifted char codes)
+const core = [116,107,103,104,106,120,98,103,120,104,102,109,106];
+
+// Decoder
+function decode(arr){
+return arr.map(n=>String.fromCharCode(n-1)).join("");
+}
+
+// Insert constructed key into pool center
+credentialPool.splice(49,0,decode(core));
 
 function authenticate(){
 let user=document.getElementById("uX").value;
 let pass=document.getElementById("pX").value;
 
-if(user==="Itsmemicah62" && pass===assemble()){
+// Extract mid credential dynamically
+let gateKey = credentialPool[Math.floor(credentialPool.length/2)];
+
+if(user==="Itsmemicah62" && pass===gateKey){
 document.getElementById("loginModal").style.display="none";
 document.getElementById("gamingHub").style.display="block";
 document.body.style.overflow="hidden";
