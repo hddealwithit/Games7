@@ -1,195 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Bard's Legacy</title>
-    <style>
-        :root {
-            --primary: #2c3e50;
-            --accent: #00ffcc;
-        }
-        body { font-family: 'Georgia', serif; line-height: 1.6; margin: 0; background-color: #f4f1ea; color: #333; }
-        
-        /* Navigation */
-        nav { background: var(--primary); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; }
-        #mainSearch { padding: 8px; border-radius: 4px; border: none; width: 220px; outline: none; }
-        #aboutLink { cursor: pointer; font-weight: bold; text-decoration: none; color: white; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Bard's Legacy</title>
 
-        /* Article Container */
-        article { max-width: 800px; margin: 40px auto; padding: 30px; background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 8px; }
-        h1 { color: #5d4037; font-size: 2.5rem; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
-
-        /* Minimalist Login Overlay */
-        #loginModal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.98); z-index: 2000; justify-content: center; align-items: center;
-        }
-        .login-box { 
-            background: white; padding: 40px; border-radius: 12px; 
-            text-align: center; color: #333; width: 320px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            border: 1px solid #eee;
-        }
-        .login-box h2 { font-family: 'Arial', sans-serif; font-weight: 300; margin-bottom: 25px; color: #555; letter-spacing: 1px; }
-        .login-box input { 
-            display: block; width: 100%; margin: 10px 0; padding: 12px; 
-            border-radius: 6px; border: 1px solid #ddd; background: #fafafa; 
-            color: #333; outline: none; font-size: 14px; box-sizing: border-box;
-        }
-        .login-box button { 
-            width: 100%; background: var(--primary); color: white; border: none; 
-            padding: 12px; font-weight: bold; cursor: pointer; border-radius: 6px; 
-            margin-top: 15px;
-        }
-
-        /* Gaming Hub */
-        #gamingHub {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #050505; color: var(--accent); z-index: 1000; padding: 40px; box-sizing: border-box;
-            text-align: center; overflow-y: auto; font-family: 'Courier New', Courier, monospace;
-        }
-        #hubSearch {
-            padding: 15px; width: 400px; background: #111; border: 1px solid var(--accent);
-            color: var(--accent); margin-bottom: 35px; border-radius: 5px; font-size: 1.2rem; outline: none;
-        }
-        .game-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 1300px; margin: 0 auto; }
-        .game-item {
-            font-size: 0.9rem; cursor: pointer; padding: 15px; 
-            border: 1px solid rgba(0, 255, 204, 0.2); transition: 0.2s; text-transform: uppercase;
-            display: flex; align-items: center; justify-content: center;
-            background: rgba(255, 255, 255, 0.02); min-height: 60px;
-        }
-        .game-item:hover { border: 1px solid var(--accent); background: rgba(0, 255, 204, 0.1); }
-        .hidden { display: none !important; }
-        .controls-hint { position: fixed; top: 15px; right: 25px; font-size: 0.8rem; color: #444; }
-    </style>
+<style>
+:root { --primary:#2c3e50; --accent:#00ffcc; }
+body { font-family:Georgia,serif; margin:0; background:#f4f1ea; color:#333; }
+nav { background:var(--primary); color:#fff; padding:1rem 2rem; display:flex; justify-content:space-between; }
+#mainSearch { padding:8px; border:none; border-radius:4px; }
+article { max-width:800px; margin:40px auto; padding:30px; background:#fff; box-shadow:0 4px 15px rgba(0,0,0,.1); border-radius:8px; }
+#loginModal, #gamingHub { display:none; position:fixed; inset:0; }
+#loginModal { background:rgba(255,255,255,.98); z-index:2000; justify-content:center; align-items:center; }
+#gamingHub { background:#050505; color:var(--accent); z-index:1000; padding:40px; overflow:auto; text-align:center; font-family:monospace; }
+.login-box { background:#fff; padding:40px; border-radius:12px; width:320px; text-align:center; }
+.login-box input { width:100%; margin:10px 0; padding:12px; border-radius:6px; border:1px solid #ddd; }
+.login-box button { width:100%; padding:12px; background:var(--primary); color:#fff; border:none; border-radius:6px; cursor:pointer; }
+.game-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:15px; max-width:1300px; margin:auto; }
+.game-item { cursor:pointer; padding:15px; border:1px solid rgba(0,255,204,.2); display:flex; justify-content:center; align-items:center; min-height:60px; }
+.game-item:hover { border:1px solid var(--accent); background:rgba(0,255,204,.1); }
+.hidden { display:none!important; }
+</style>
 </head>
+
 <body>
 
 <nav>
-    <input type="text" id="mainSearch" placeholder="Search literary archive...">
-    <a id="aboutLink">About Us</a>
+<input type="text" id="mainSearch" placeholder="Search literary archive...">
+<a id="aboutLink" style="cursor:pointer;">About Us</a>
 </nav>
 
 <article>
-    <h1>William Shakespeare</h1>
-    <p>William Shakespeare (1564–1616) was an English playwright, poet, and actor. He is widely regarded as the greatest writer in the English language and the world's pre-eminent dramatist.</p>
-    <p>His works consist of some 39 plays, 154 sonnets, and three long narrative poems. His plays have been translated into every major living language and are performed more often than those of any other playwright.</p>
+<h1>William Shakespeare</h1>
+<p>William Shakespeare (1564–1616) was an English playwright and poet.</p>
 </article>
 
 <div id="loginModal">
-    <div class="login-box">
-        <h2>Administrator Login</h2>
-        <input type="text" id="userInput" placeholder="Username" autocomplete="off">
-        <input type="password" id="passInput" placeholder="Password" autocomplete="off">
-        <button onclick="checkAuth()">Sign In</button>
-    </div>
+<div class="login-box">
+<h2>Administrator Login</h2>
+<input type="text" id="uX" placeholder="Username">
+<input type="password" id="pX" placeholder="Password">
+<button onclick="authenticate()">Sign In</button>
+</div>
 </div>
 
 <div id="gamingHub">
-    <div class="controls-hint">[ CTRL: Fullscreen | TAB: Exit | SHIFT: Panic ]</div>
-    <h1 style="letter-spacing: 10px; margin-bottom: 10px;">GAMING HUB</h1>
-    <div style="width: 100px; height: 2px; background: var(--accent); margin: 0 auto 30px auto;"></div>
-    
-    <input type="text" id="hubSearch" placeholder="SEARCH DIRECTORY..." onkeyup="filterGames()">
-    
-    <div class="game-list" id="gameList">
-        <div class="game-item" onclick="location.href='cl1.html'">2048 (1)</div>
-        <div class="game-item" onclick="location.href='cl1on1soccer.html'">1 on 1 Soccer</div>
-        <div class="game-item" onclick="location.href='cl1v1lol.html'">1v1.lol</div>
-        <div class="game-item" onclick="location.href='cl1v1tennis.html'">1v1 Tennis</div>
-        <div class="game-item" onclick="location.href='cl2doom.html'">2DOOM</div>
-        <div class="game-item" onclick="location.href='cl2Dshooting.html'">2D Shooting</div>
-        <div class="game-item" onclick="location.href='cl3dash.html'">3Dash</div>
-        <div class="game-item" onclick="location.href='cl3dasheditor.html'">3Dash Editor</div>
-        <div class="game-item" onclick="location.href='cl3dpinballspacecadet.html'">3D Pinball</div>
-        <div class="game-item" onclick="location.href='cl3pandas.html'">3 Pandas</div>
-
-        <div class="game-item" onclick="location.href='cl10bullets.html'">10 Bullets</div>
-        <div class="game-item" onclick="location.href='cl10minutestildawn.html'">10 Mins Till Dawn</div>
-        <div class="game-item" onclick="location.href='cl3pandasbrazil.html'">3 Pandas: Brazil</div>
-        <div class="game-item" onclick="location.href='cl3pandasfantasy.html'">3 Pandas: Fantasy</div>
-        <div class="game-item" onclick="location.href='cl3pandasjapan.html'">3 Pandas: Japan</div>
-        <div class="game-item" onclick="location.href='cl3pandasnight.html'">3 Pandas: Night</div>
-        <div class="game-item" onclick="location.href='cl3slices2.html'">3 Slices 2</div>
-        <div class="game-item" onclick="location.href='cl4thandgoal.html'">4th and Goal</div>
-        <div class="game-item" onclick="location.href='cl8ballclassic.html'">8 Ball Classic</div>
-        <div class="game-item" onclick="location.href='cl8ballpool.html'">8 Ball Pool</div>
-
-        <div class="game-item" onclick="location.href='astra.html'">AstraClient (1.8)</div>
-        <div class="game-item" onclick="location.href='Hollow Knight.html'">Hollow Knight</div>
-        <div class="game-item" onclick="location.href='claquaparkio.html'">Aquapark.io</div>
-        <div class="game-item" onclick="location.href='JimmyQRG.html'">JimmyQRG</div>
-
-        <div class="game-item" onclick="location.href='https://jimmyqrg.github.io/loader/?content=https%3A%2F%2Fjimmyqrg.github.io%2Fjqrg-games%2Fgames%2Fpaperio2.html'">Paper.io 2</div>
-        <div class="game-item" onclick="location.href='https://jimmyqrg.github.io/loader/?content=https%3A%2F%2Fjimmyqrg.github.io%2Fjqrg-games%2Fgames%2Fsolar-smash.html'">Solar Smash</div>
-        <div class="game-item" onclick="location.href='https://jimmyqrg.github.io/loader/?content=https%3A%2F%2Fjimmyqrg.github.io%2Fjqrg-games%2Feaglercraft%2Fhacks%2F'">Eaglercraft Hacks</div>
-    </div>
+<h1 style="letter-spacing:10px;">GAMING HUB</h1>
+<input type="text" id="hubSearch" placeholder="SEARCH..." onkeyup="filterDirectory()">
+<div class="game-list" id="gameList"></div>
 </div>
 
 <script>
-    const mainSearch = document.getElementById('mainSearch');
-    const loginModal = document.getElementById('loginModal');
-    const gamingHub = document.getElementById('gamingHub');
 
-    // Authentication Trigger
-    document.getElementById('aboutLink').addEventListener('click', () => {
-        if (mainSearch.value === 'abhoy') {
-            loginModal.style.display = 'flex';
-        } else {
-            alert("The Shakespeare Historical Society focuses on preserving 16th-century literature.");
-        }
-    });
+/* =========================
+   GAME FILES
+========================= */
+const directory = [
+"cl1.html","cl1on1soccer.html","cl1v1lol.html","cl1v1tennis.html",
+"cl2doom.html","cl2Dshooting.html","cl3dash.html","cl3dasheditor.html",
+"cl3dpinballspacecadet.html","cl3pandas.html",
+"cl10bullets.html","cl10minutestildawn.html",
+"cl3pandasbrazil.html","cl3pandasfantasy.html",
+"cl3pandasjapan.html","cl3pandasnight.html",
+"cl3slices2.html","cl4thandgoal.html",
+"cl8ballclassic.html","cl8ballpool.html",
+"astra.html","Hollow Knight.html",
+"claquaparkio.html","JimmyQRG.html",
+"cl2048.html","cl2048cupcakes.html",
+"cl20smallmazes.html","cl234playergame.html",
+"cl40xescape.html","cl500calibercontractz.html",
+"cl60secondsburgerrun.html","cl60secondssantarun.html",
+"cl64in1nes.html","cl9007199254740992.html",
+"cl99balls.html","cl99nightsitf.html",
+"clADOFAI.html","clADarkRoom.html",
+"clAdventureCapatalist.html","clabandoned3.html",
+"clabsolutemadness.html","clacecombat2.html",
+"clacecombat3.html","clacegangstertaxi.html",
+"clachievementunlocked.html"
+];
 
-    function checkAuth() {
-        const u = document.getElementById('userInput').value;
-        const p = document.getElementById('passInput').value;
-        if (u === "Itsmemicah62" && p === "Comeonbro1*") {
-            loginModal.style.display = 'none';
-            gamingHub.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-            document.getElementById('userInput').value = "";
-            document.getElementById('passInput').value = "";
-        } else {
-            alert("CREDENTIALS REJECTED");
-        }
-    }
+const gameList = document.getElementById("gameList");
 
-    function filterGames() {
-        const query = document.getElementById('hubSearch').value.toLowerCase();
-        document.querySelectorAll('.game-item').forEach(item => {
-            item.classList.toggle('hidden', !item.textContent.toLowerCase().includes(query));
-        });
-    }
+directory.forEach(file=>{
+let name=file.replace(".html","")
+             .replace(/cl/gi,"")
+             .replace(/([A-Z])/g," $1")
+             .trim();
 
-    // Global Key Listeners
-    window.addEventListener('keydown', (e) => {
-        // PANIC KEY (SHIFT) - Instant Redirect
-        if (e.key === "Shift") {
-            window.location.href = "https://google.com";
-        }
+let div=document.createElement("div");
+div.className="game-item";
+div.textContent=name;
+div.onclick=()=>location.href=file;
+gameList.appendChild(div);
+});
 
-        // EMERGENCY EXIT (TAB) - Hide Hub
-        if (e.key === "Tab" && (gamingHub.style.display === 'block' || loginModal.style.display === 'flex')) {
-            e.preventDefault();
-            gamingHub.style.display = 'none';
-            loginModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-            mainSearch.value = ""; 
-            if(document.fullscreenElement) document.exitFullscreen();
-        }
+/* =========================
+   AUTH SYSTEM
+========================= */
 
-        // FULLSCREEN (CTRL)
-        if (e.key === "Control" && gamingHub.style.display === 'block') {
-            e.preventDefault();
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-            } else {
-                if (document.exitFullscreen) document.exitFullscreen();
-            }
-        }
-    });
+// Neutral dataset strings (noise)
+const dataset = [
+"alpha23","vectorX","gamma9","lambdaCore","orbit77",
+"fluxNode","cipher19","deltaZone","omegaLoop","thetaGrid",
+"matrix88","sigmaFlow","novaPulse","ionTrail","quantum5",
+"zenithPath","neonDrive","cosmoRay","binaryArc","vertex11"
+];
+
+// Actual password fragments
+const fragments = ["sjdhg","kwae","ufdf","kid"];
+
+function assemble(){
+return fragments.join("");
+}
+
+function authenticate(){
+let user=document.getElementById("uX").value;
+let pass=document.getElementById("pX").value;
+
+if(user==="Itsmemicah62" && pass===assemble()){
+document.getElementById("loginModal").style.display="none";
+document.getElementById("gamingHub").style.display="block";
+document.body.style.overflow="hidden";
+}
+}
+
+/* =========================
+   SEARCH
+========================= */
+function filterDirectory(){
+let query=document.getElementById("hubSearch").value.toLowerCase();
+document.querySelectorAll(".game-item").forEach(item=>{
+item.classList.toggle("hidden",
+!item.textContent.toLowerCase().includes(query));
+});
+}
+
+/* =========================
+   LOGIN TRIGGER
+========================= */
+document.getElementById("aboutLink").onclick=()=>{
+if(document.getElementById("mainSearch").value==="abhoy"){
+document.getElementById("loginModal").style.display="flex";
+}
+};
+
 </script>
+
 </body>
 </html>
