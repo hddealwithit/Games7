@@ -31,7 +31,6 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             border: 1px solid #eee;
         }
-        .login-box h2 { font-family: 'Arial', sans-serif; font-weight: 300; margin-bottom: 25px; color: #555; }
         .login-box input { 
             display: block; width: 100%; margin: 10px 0; padding: 12px; 
             border-radius: 6px; border: 1px solid #ddd; background: #fafafa; 
@@ -71,7 +70,7 @@
 
 <article>
     <h1>William Shakespeare</h1>
-    <p>William Shakespeare (1564–1616) was an English playwright, poet, and actor. He is widely regarded as the greatest writer in the English language and the world's pre-eminent dramatist.</p>
+    <p>William Shakespeare (1564–1616) was an English playwright, poet, and actor. He is widely regarded as the greatest writer in the English language.</p>
 </article>
 
 <div id="loginModal">
@@ -98,7 +97,6 @@
         <div class="game-item" onclick="location.href='cl4thandgoal.html'">4th and Goal</div>
         <div class="game-item" onclick="location.href='cl8ballclassic.html'">8 Ball Classic</div>
         <div class="game-item" onclick="location.href='cl8ballpool.html'">8 Ball Pool</div>
-
         <div class="game-item" onclick="location.href='cl3pandas.html'">3 Pandas</div>
         <div class="game-item" onclick="location.href='cl1.html'">2048</div>
         <div class="game-item" onclick="location.href='cl1on1soccer.html'">1 on 1 Soccer</div>
@@ -109,7 +107,6 @@
         <div class="game-item" onclick="location.href='cl3dash.html'">3Dash</div>
         <div class="game-item" onclick="location.href='cl3dasheditor.html'">3Dash Editor</div>
         <div class="game-item" onclick="location.href='cl3dpinballspacecadet.html'">3D Pinball</div>
-
         <div class="game-item" onclick="location.href='astra.html'">AstraClient</div>
         <div class="game-item" onclick="location.href='Hollow Knight.html'">Hollow Knight</div>
         <div class="game-item" onclick="location.href='claquaparkio.html'">Aquapark.io</div>
@@ -118,12 +115,35 @@
 </div>
 
 <script>
+    // Vigenère Logic
+    const CIPHER_KEY = "bella";
+    const TARGET_ENCODED = "Tknivkxhlyvhhvte"; // "Sjdhgkwaeufdfkid" encoded with "bella"
+
+    function vigenereDecode(text, key) {
+        let result = "";
+        for (let i = 0, j = 0; i < text.length; i++) {
+            let c = text.charCodeAt(i);
+            if (c >= 65 && c <= 90) {
+                result += String.fromCharCode((c - 65 - (key.toUpperCase().charCodeAt(j % key.length) - 65) + 26) % 26 + 65);
+                j++;
+            } else if (c >= 97 && c <= 122) {
+                result += String.fromCharCode((c - 97 - (key.toLowerCase().charCodeAt(j % key.length) - 97) + 26) % 26 + 97);
+                j++;
+            } else {
+                result += text.charAt(i);
+            }
+        }
+        return result;
+    }
+
     const mainSearch = document.getElementById('mainSearch');
     const loginModal = document.getElementById('loginModal');
     const gamingHub = document.getElementById('gamingHub');
 
+    // Trigger check
     document.getElementById('aboutLink').addEventListener('click', () => {
-        if (mainSearch.value === 'Sjdhgkwaeufdfkid') {
+        // We decode the search value using "bella" and see if it matches our target
+        if (mainSearch.value === vigenereDecode(TARGET_ENCODED, CIPHER_KEY)) {
             loginModal.style.display = 'flex';
         } else {
             alert("Archive restricted to authorized scholars.");
