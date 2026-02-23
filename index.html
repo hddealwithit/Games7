@@ -25,8 +25,8 @@
 
         /* Secret Portal */
         #purpleSquare { 
-            display: none; width: 6px; height: 6px; background: #800080; 
-            margin: 50px auto 10px auto; cursor: crosshair; opacity: 0.5;
+            display: none; width: 8px; height: 8px; background: #800080; 
+            margin: 60px auto 20px auto; cursor: crosshair; opacity: 0.6;
         }
 
         /* Gaming Hub */
@@ -35,16 +35,16 @@
             background: #050505; color: var(--accent); z-index: 1000; padding: 40px; box-sizing: border-box;
             text-align: center; overflow-y: auto; font-family: 'Courier New', Courier, monospace;
         }
-        #hubSearch { padding: 15px; width: 400px; background: #111; border: 1px solid var(--accent); color: var(--accent); margin-bottom: 35px; outline: none; }
-        .game-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; max-width: 1200px; margin: 0 auto; }
-        .game-item { font-size: 0.9rem; cursor: pointer; padding: 12px; border: 1px solid rgba(0, 255, 204, 0.2); background: rgba(255, 255, 255, 0.02); }
-        .game-item:hover { border: 1px solid var(--accent); background: rgba(0, 255, 204, 0.1); }
+        #hubSearch { padding: 15px; width: 450px; background: #111; border: 1px solid var(--accent); color: var(--accent); margin-bottom: 35px; outline: none; font-size: 1.1rem; }
+        .game-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; max-width: 1400px; margin: 0 auto; padding-bottom: 50px; }
+        .game-item { font-size: 0.95rem; cursor: pointer; padding: 15px; border: 1px solid rgba(0, 255, 204, 0.2); background: rgba(255, 255, 255, 0.02); text-transform: uppercase; transition: 0.2s; }
+        .game-item:hover { border: 1px solid var(--accent); background: rgba(0, 255, 204, 0.1); color: #fff; }
         .hidden { display: none !important; }
 
-        /* Game Box */
+        /* Same-Site Game Player */
         #gamePlayer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 3000; }
         #gameIframe { width: 100%; height: 100%; border: none; }
-        .back-btn { position: absolute; top: 10px; left: 10px; z-index: 3001; background: #111; color: var(--accent); border: 1px solid var(--accent); padding: 5px 10px; cursor: pointer; }
+        .back-btn { position: absolute; top: 15px; left: 15px; z-index: 3001; background: #111; color: var(--accent); border: 1px solid var(--accent); padding: 8px 15px; cursor: pointer; font-family: monospace; }
     </style>
 </head>
 <body onmousemove="resetTimer()" onkeydown="resetTimer()">
@@ -58,20 +58,23 @@
     <h1 id="titleText">William Shakespeare</h1>
     <div id="articleText">
         <p>William Shakespeare (1564–1616) was an English playwright, poet, and actor. He is widely regarded as the greatest writer in the English language and the world's pre-eminent dramatist.</p>
-        <p>His works consist of some 39 plays, 154 sonnets, and three long narrative poems. His plays have been translated into every major living language.</p>
+        <p>His works consist of some 39 plays, 154 sonnets, and three long narrative poems. His plays have been translated into every major living language and are performed more often than those of any other playwright.</p>
     </div>
     <div id="purpleSquare" onclick="openHub()"></div>
 </article>
 
 <div id="gamePlayer">
-    <button class="back-btn" onclick="closeGame()">← HUB</button>
+    <button class="back-btn" onclick="closeGame()">← EXIT TO HUB</button>
     <iframe id="gameIframe" src=""></iframe>
 </div>
 
 <div id="gamingHub">
-    <h1 style="letter-spacing: 10px;">SYSTEM_OVERRIDE</h1>
-    <input type="text" id="hubSearch" placeholder="LOCATING FILES..." onkeyup="filterGames()">
-    <div class="game-list">
+    <h1 style="letter-spacing: 12px; color: #cc0000; margin-bottom: 5px;">SYSTEM_OVERRIDE</h1>
+    <p style="font-size: 0.8rem; opacity: 0.5; margin-bottom: 30px;">[ AUTO-STEALTH ACTIVE: 120s ]</p>
+    
+    <input type="text" id="hubSearch" placeholder="SEARCH ENCRYPTED FILES..." onkeyup="filterGames()">
+    
+    <div class="game-list" id="fullGameList">
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/tomb-of-the-mask/')">Tomb of Mask</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/drive-mad/')">Drive Mad</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/drift-hunters/')">Drift Hunters</div>
@@ -82,9 +85,36 @@
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/slope/')">Slope</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/eggy-car/')">Eggy Car</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/geometry-dash/')">Geo Dash</div>
+
         <div class="game-item" onclick="launch('cl1.html')">2048</div>
         <div class="game-item" onclick="launch('cl10bullets.html')">10 Bullets</div>
+        <div class="game-item" onclick="launch('cl10minutestildawn.html')">10 Mins Till Dawn</div>
         <div class="game-item" onclick="launch('cl1on1soccer.html')">1 on 1 Soccer</div>
+        <div class="game-item" onclick="launch('cl1v1lol.html')">1v1.lol (Local)</div>
+        <div class="game-item" onclick="launch('cl1v1tennis.html')">1v1 Tennis</div>
+        <div class="game-item" onclick="launch('cl2doom.html')">2DOOM</div>
+        <div class="game-item" onclick="launch('cl2Dshooting.html')">2D Shooting</div>
+        <div class="game-item" onclick="launch('cl3dash.html')">3Dash</div>
+        <div class="game-item" onclick="launch('cl3dasheditor.html')">3Dash Editor</div>
+        <div class="game-item" onclick="launch('cl3dpinballspacecadet.html')">3D Pinball</div>
+        <div class="game-item" onclick="launch('cl3pandas.html')">3 Pandas (Original)</div>
+        <div class="game-item" onclick="launch('cl3pandasbrazil.html')">3 Pandas: Brazil</div>
+        <div class="game-item" onclick="launch('cl3pandasfantasy.html')">3 Pandas: Fantasy</div>
+        <div class="game-item" onclick="launch('cl3pandasjapan.html')">3 Pandas: Japan</div>
+        <div class="game-item" onclick="launch('cl3pandasnight.html')">3 Pandas: Night</div>
+        <div class="game-item" onclick="launch('cl3slices2.html')">3 Slices 2</div>
+        <div class="game-item" onclick="launch('cl4thandgoal.html')">4th and Goal</div>
+        <div class="game-item" onclick="launch('cl8ballclassic.html')">8 Ball Classic</div>
+        <div class="game-item" onclick="launch('cl8ballpool.html')">8 Ball Pool</div>
+        <div class="game-item" onclick="launch('astra.html')">Astraclient</div>
+        <div class="game-item" onclick="launch('Hollow Knight.html')">Hollow Knight</div>
+        <div class="game-item" onclick="launch('claquaparkio.html')">Aquapark.io</div>
+        <div class="game-item" onclick="launch('JimmyQRG.html')">JimmyQRG</div>
+        <div class="game-item" onclick="launch('https://jimmyqrg.github.io/loader/?content=https%3A%2F%2Fjimmyqrg.github.io%2Fjqrg-games%2Fgames%2Fpaperio2.html')">Paper.io 2</div>
+        <div class="game-item" onclick="launch('https://jimmyqrg.github.io/loader/?content=https%3A%2F%2Fjimmyqrg.github.io%2Fjqrg-games%2Fgames%2Fsolar-smash.html')">Solar Smash</div>
+        <div class="game-item" onclick="launch('https://jimmyqrg.github.io/loader/?content=https%3A%2F%2Fjimmyqrg.github.io%2Fjqrg-games%2Feaglercraft%2Fhacks%2F')">Eaglercraft Hacks</div>
+        <div class="game-item" onclick="launch('https://jimmyqrg.github.io/loader/?content=https%3A%2F%2Fjimmyqrg.github.io%2Fjqrg-games%2Fgames%2Fdeltarune.html')">Deltarune</div>
+        <div class="game-item" onclick="launch('https://jimmyqrg.github.io/loader/?content=https%3A%2F%2Fjimmyqrg.github.io%2Fjqrg-games%2Fgames%2Fundertale.html')">Undertale</div>
     </div>
 </div>
 
@@ -93,28 +123,30 @@
     const mainSearch = document.getElementById('mainSearch');
     const purpleSquare = document.getElementById('purpleSquare');
     const gamingHub = document.getElementById('gamingHub');
+    const gamePlayer = document.getElementById('gamePlayer');
+    const gameIframe = document.getElementById('gameIframe');
 
-    // 1. Secret Entrance Sequence
+    // 1. Entrance Logic
     document.getElementById('aboutLink').addEventListener('click', () => {
         if (mainSearch.value === 'abhoy') {
             triggerGlitch();
         } else {
-            alert("Educational Archive Error: 404");
+            alert("Education Resource: Indexing Shakespeare 1.0.4...");
         }
     });
 
     function triggerGlitch() {
         document.body.classList.add('glitched');
-        document.getElementById('titleText').innerText = "NULL_VOID // ERR";
+        document.getElementById('titleText').innerText = "FATAL_ERROR: BUFFER_OVERFLOW";
         let glitchContent = "";
-        for(let i=0; i<50; i++) {
-            glitchContent += `<p class="glitch-text">DATA CORRUPTION AT SECTOR ${Math.random().toString(16).slice(2,8)}... UNABLE TO RETRIEVE BARD_LEGACY.EXE... ${i === 25 ? "<b>I SEE YOU.</b>" : ""}</p>`;
+        for(let i=0; i<60; i++) {
+            glitchContent += `<p class="glitch-text">0x${Math.random().toString(16).slice(2,10).toUpperCase()} - ACCESS_DENIED - KERNEL_PANIC - ${i === 30 ? "<b>STAY CALM.</b>" : "RETRY_CONNECT"}</p>`;
         }
         document.getElementById('articleText').innerHTML = glitchContent;
-        mainSearch.value = ""; // Clear for second step
+        mainSearch.value = ""; 
     }
 
-    // 2. Secret Phrase Check (No Enter Allowed)
+    // 2. Secret Phrase Listener (No Enter)
     mainSearch.addEventListener('input', () => {
         if (document.body.classList.contains('glitched')) {
             if (mainSearch.value.toLowerCase() === "i don't like this") {
@@ -126,41 +158,38 @@
         }
     });
 
-    // Reset if Enter is pressed in search bar
     mainSearch.addEventListener('keypress', (e) => {
         if (e.key === "Enter") {
-            window.location.reload();
+            window.location.reload(); // Pressing Enter resets the site
         }
     });
 
-    // 3. Hub Functions
+    // 3. Hub & Game Player
     function openHub() {
         gamingHub.style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
 
     function launch(url) {
-        document.getElementById('gameIframe').src = url;
-        document.getElementById('gamePlayer').style.display = 'block';
+        gameIframe.src = url;
+        gamePlayer.style.display = 'block';
     }
 
     function closeGame() {
-        document.getElementById('gamePlayer').style.display = 'none';
-        document.getElementById('gameIframe').src = '';
+        gamePlayer.style.display = 'none';
+        gameIframe.src = '';
     }
 
-    // 4. Panic Key & Auto-Stealth
+    // 4. Panic & Auto-Stealth (2 Mins)
     function panic() {
         window.location.replace("https://www.google.com");
     }
 
-    function resetTimer() {
-        idleTime = 0;
-    }
+    function resetTimer() { idleTime = 0; }
 
     setInterval(() => {
         idleTime++;
-        if (idleTime >= 120) { // 2 Minutes (120 seconds)
+        if (idleTime >= 120) { // 120 seconds = 2 minutes
             if (gamingHub.style.display === 'block' || document.body.classList.contains('glitched')) {
                 panic();
             }
