@@ -35,7 +35,7 @@
             background: #050505; color: var(--accent); z-index: 1000; padding: 40px; box-sizing: border-box;
             text-align: center; overflow-y: auto; font-family: 'Courier New', Courier, monospace;
         }
-        #hubSearch { padding: 15px; width: 450px; background: #111; border: 1px solid var(--accent); color: var(--accent); margin-bottom: 35px; outline: none; font-size: 1.1rem; }
+        #hubSearch { padding: 15px; width: 450px; max-width: 90%; background: #111; border: 1px solid var(--accent); color: var(--accent); margin-bottom: 35px; outline: none; font-size: 1.1rem; }
         .game-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; max-width: 1400px; margin: 0 auto; padding-bottom: 50px; }
         .game-item { font-size: 0.95rem; cursor: pointer; padding: 15px; border: 1px solid rgba(0, 255, 204, 0.2); background: rgba(255, 255, 255, 0.02); text-transform: uppercase; transition: 0.2s; }
         .game-item:hover { border: 1px solid var(--accent); background: rgba(0, 255, 204, 0.1); color: #fff; }
@@ -75,29 +75,22 @@
     <input type="text" id="hubSearch" placeholder="SEARCH ENCRYPTED FILES..." onkeyup="filterGames()">
     
     <div class="game-list" id="fullGameList">
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/tomb-of-the-mask/')">Tomb of Mask</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/drive-mad/')">Drive Mad</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/drift-hunters/')">Drift Hunters</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/1v1-lol/')">1v1.LOL</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/retro-bowl/')">Retro Bowl</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/monkey-mart/')">Monkey Mart</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/bitlife/')">BitLife</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/slope/')">Slope</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/eggy-car/')">Eggy Car</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/geometry-dash/')">Geo Dash</div>
-
+        <div class="game-item" onclick="launch('crossyroad.html')">Crossy Road</div>
+        <div class="game-item" onclick="launch('slope.html')">Slope (V1)</div>
+        <div class="game-item" onclick="launch('minecraft.html')">Minecraft</div>
+        <div class="game-item" onclick="launch('fnaf.html')">FNaF</div>
         <div class="game-item" onclick="launch('cl1.html')">2048</div>
         <div class="game-item" onclick="launch('cl10bullets.html')">10 Bullets</div>
         <div class="game-item" onclick="launch('cl10minutestildawn.html')">10 Mins Till Dawn</div>
         <div class="game-item" onclick="launch('cl1on1soccer.html')">1 on 1 Soccer</div>
-        <div class="game-item" onclick="launch('cl1v1lol.html')">1v1.lol (Local)</div>
+        <div class="game-item" onclick="launch('cl1v1lol.html')">1v1.lol (Offline)</div>
         <div class="game-item" onclick="launch('cl1v1tennis.html')">1v1 Tennis</div>
         <div class="game-item" onclick="launch('cl2doom.html')">2DOOM</div>
         <div class="game-item" onclick="launch('cl2Dshooting.html')">2D Shooting</div>
         <div class="game-item" onclick="launch('cl3dash.html')">3Dash</div>
         <div class="game-item" onclick="launch('cl3dasheditor.html')">3Dash Editor</div>
         <div class="game-item" onclick="launch('cl3dpinballspacecadet.html')">3D Pinball</div>
-        <div class="game-item" onclick="launch('cl3pandas.html')">3 Pandas (Original)</div>
+        <div class="game-item" onclick="launch('cl3pandas.html')">3 Pandas</div>
         <div class="game-item" onclick="launch('cl3pandasbrazil.html')">3 Pandas: Brazil</div>
         <div class="game-item" onclick="launch('cl3pandasfantasy.html')">3 Pandas: Fantasy</div>
         <div class="game-item" onclick="launch('cl3pandasjapan.html')">3 Pandas: Japan</div>
@@ -109,7 +102,19 @@
         <div class="game-item" onclick="launch('astra.html')">Astraclient</div>
         <div class="game-item" onclick="launch('Hollow Knight.html')">Hollow Knight</div>
         <div class="game-item" onclick="launch('claquaparkio.html')">Aquapark.io</div>
-        <div class="game-item" onclick="launch('JimmyQRG.html')">JimmyQRG</div>
+        <div class="game-item" onclick="launch('JimmyQRG.html')">JimmyQRG Hub</div>
+        <div class="game-item" onclick="launch('test.html')">Debug/Test Page</div>
+
+        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/tomb-of-the-mask/')">Tomb of Mask</div>
+        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/drive-mad/')">Drive Mad</div>
+        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/drift-hunters/')">Drift Hunters</div>
+        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/1v1-lol/')">1v1.LOL (Online)</div>
+        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/retro-bowl/')">Retro Bowl</div>
+        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/monkey-mart/')">Monkey Mart</div>
+        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/bitlife/')">BitLife</div>
+        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/slope/')">Slope (Online)</div>
+        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/eggy-car/')">Eggy Car</div>
+        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/geometry-dash/')">Geo Dash</div>
         <div class="game-item" onclick="launch('https://jimmyqrg.github.io/loader/?content=https%3A%2F%2Fjimmyqrg.github.io%2Fjqrg-games%2Fgames%2Fpaperio2.html')">Paper.io 2</div>
         <div class="game-item" onclick="launch('https://jimmyqrg.github.io/loader/?content=https%3A%2F%2Fjimmyqrg.github.io%2Fjqrg-games%2Fgames%2Fsolar-smash.html')">Solar Smash</div>
         <div class="game-item" onclick="launch('https://jimmyqrg.github.io/loader/?content=https%3A%2F%2Fjimmyqrg.github.io%2Fjqrg-games%2Feaglercraft%2Fhacks%2F')">Eaglercraft Hacks</div>
@@ -146,7 +151,7 @@
         mainSearch.value = ""; 
     }
 
-    // 2. Secret Phrase Listener (No Enter)
+    // 2. Secret Phrase Listener
     mainSearch.addEventListener('input', () => {
         if (document.body.classList.contains('glitched')) {
             if (mainSearch.value.toLowerCase() === "i don't like this") {
@@ -160,7 +165,7 @@
 
     mainSearch.addEventListener('keypress', (e) => {
         if (e.key === "Enter") {
-            window.location.reload(); // Pressing Enter resets the site
+            window.location.reload();
         }
     });
 
@@ -180,7 +185,7 @@
         gameIframe.src = '';
     }
 
-    // 4. Panic & Auto-Stealth (2 Mins)
+    // 4. Panic & Auto-Stealth
     function panic() {
         window.location.replace("https://www.google.com");
     }
@@ -189,7 +194,7 @@
 
     setInterval(() => {
         idleTime++;
-        if (idleTime >= 120) { // 120 seconds = 2 minutes
+        if (idleTime >= 120) {
             if (gamingHub.style.display === 'block' || document.body.classList.contains('glitched')) {
                 panic();
             }
