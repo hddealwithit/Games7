@@ -120,9 +120,9 @@
 
 <script>
     // ==========================================
-    // ALLOWED IP WHITELIST - ADD YOUR IPS HERE
+    // ALLOWED IP WHITELIST - UPDATED
     // ==========================================
-    const ALLOWED_IPS = ['138.43.108.18']; 
+    const ALLOWED_IPS = ['149.19.46.18']; 
     // ==========================================
 
     let user_ip = "";
@@ -152,7 +152,6 @@
 
     // 1. Entrance Logic
     document.getElementById('aboutLink').addEventListener('click', () => {
-        // Only trigger glitch if IP is allowed AND search matches
         if (access_granted && mainSearch.value === 'abhoy') {
             triggerGlitch();
         } else {
