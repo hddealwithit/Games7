@@ -119,14 +119,6 @@
 </div>
 
 <script>
-    // ==========================================
-    // ALLOWED IP WHITELIST - UPDATED
-    // ==========================================
-    const ALLOWED_IPS = ['149.19.46.18']; 
-    // ==========================================
-
-    let user_ip = "";
-    let access_granted = false;
     let idleTime = 0;
 
     const mainSearch = document.getElementById('mainSearch');
@@ -135,24 +127,10 @@
     const gamePlayer = document.getElementById('gamePlayer');
     const gameIframe = document.getElementById('gameIframe');
 
-    // Fetch IP and Check Permission
-    async function checkPermission() {
-        try {
-            const response = await fetch('https://api.ipify.org?format=json');
-            const data = await response.json();
-            user_ip = data.ip;
-            if (ALLOWED_IPS.includes(user_ip)) {
-                access_granted = true;
-            }
-        } catch (e) {
-            console.log("Network status: check failed.");
-        }
-    }
-    checkPermission();
-
     // 1. Entrance Logic
     document.getElementById('aboutLink').addEventListener('click', () => {
-        if (access_granted && mainSearch.value === 'abhoy') {
+        // Trigger glitch based ONLY on the keyword
+        if (mainSearch.value === 'abhoy') {
             triggerGlitch();
         } else {
             alert("Education Resource: Indexing Shakespeare 1.0.4...");
