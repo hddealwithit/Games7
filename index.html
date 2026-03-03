@@ -6,40 +6,39 @@
     <title>The Bard's Legacy</title>
     <style>
         :root { --primary: #2c3e50; --accent: #00ffcc; --glitch-bg: #0a0a0a; }
-        body { font-family: 'Georgia', serif; line-height: 1.6; margin: 0; background-color: #f4f1ea; color: #333; transition: background 0.5s; }
+        body { font-family: 'Georgia', serif; line-height: 1.6; margin: 0; background-color: #f4f1ea; color: #333; transition: background 0.5s; overflow-x: hidden; }
         
         nav { background: var(--primary); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
         #mainSearch { padding: 8px; border-radius: 4px; border: none; width: 250px; outline: none; }
         #aboutLink { cursor: pointer; font-weight: bold; text-decoration: none; color: white; }
 
-        article { max-width: 800px; margin: 40px auto; padding: 30px; background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 8px; transition: 0.3s; min-height: 400px; }
-        h1 { color: #5d4037; font-size: 2.5rem; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+        article { max-width: 800px; margin: 40px auto; padding: 30px; background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 8px; min-height: 500px; position: relative; }
+        h1 { color: #5d4037; font-size: 2.2rem; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
 
-        /* Search Suggestion Styling */
-        #searchSuggestions { position: absolute; background: white; border: 1px solid #ccc; width: 250px; top: 45px; color: #333; display: none; border-radius: 0 0 4px 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        #searchSuggestions { position: absolute; background: white; border: 1px solid #ccc; width: 250px; top: 45px; color: #333; display: none; border-radius: 0 0 4px 4px; z-index: 1000; max-height: 300px; overflow-y: auto; }
         .suggestion-item { padding: 8px; cursor: pointer; border-bottom: 1px solid #eee; font-size: 0.9rem; }
         .suggestion-item:hover { background: #f0f0f0; }
 
         body.glitched { background-color: var(--glitch-bg); color: #444; }
-        body.glitched article { background: #0f0f0f; color: #555; border: 1px solid #1a1a1a; }
-        body.glitched h1 { color: #880000; }
-        .glitch-text { font-family: 'Courier New', monospace; font-size: 0.8rem; color: #444; }
+        body.glitched article { background: #0f0f0f; color: #555; border: 1px solid #1a1a1a; box-shadow: none; }
+        .glitch-text { font-family: 'Courier New', monospace; font-size: 0.8rem; color: #222; margin: 1px 0; }
 
-        #purpleSquare { display: none; width: 8px; height: 8px; background: #800080; margin: 60px auto 20px auto; cursor: crosshair; opacity: 0.4; }
+        #purpleSquare { display: none; width: 8px; height: 8px; background: #800080; margin: 80px auto 20px auto; cursor: crosshair; opacity: 0.1; transition: 0.3s; }
+        #purpleSquare:hover { opacity: 0.5; }
 
-        #gamingHub { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #050505; color: var(--accent); z-index: 1000; padding: 40px; box-sizing: border-box; overflow-y: auto; text-align: center; }
+        #gamingHub { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #050505; color: var(--accent); z-index: 2000; padding: 40px; box-sizing: border-box; overflow-y: auto; text-align: center; font-family: 'Courier New', monospace; }
         #hubSearch { padding: 15px; width: 450px; background: #111; border: 1px solid var(--accent); color: var(--accent); margin-bottom: 35px; outline: none; }
-        .game-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
-        .game-item { padding: 12px; border: 1px solid rgba(0, 255, 204, 0.2); cursor: pointer; font-size: 0.8rem; }
-        .game-item:hover { border-color: var(--accent); background: rgba(0, 255, 204, 0.1); }
+        .game-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; max-width: 1200px; margin: 0 auto; }
+        .game-item { padding: 12px; border: 1px solid rgba(0, 255, 204, 0.2); cursor: pointer; font-size: 0.85rem; }
+        .game-item:hover { border-color: var(--accent); background: rgba(0, 255, 204, 0.1); color: #fff; }
 
         #gamePlayer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 3000; }
         #gameIframe { width: 100%; height: 100%; border: none; }
-        .controls { position: absolute; top: 10px; left: 10px; z-index: 3001; display: flex; gap: 10px; }
-        .btn { background: #222; color: var(--accent); border: 1px solid var(--accent); padding: 5px 15px; cursor: pointer; font-family: monospace; text-decoration: none; font-size: 0.8rem; }
+        .controls { position: absolute; top: 15px; left: 15px; z-index: 3001; display: flex; gap: 10px; }
+        .btn { background: #111; color: var(--accent); border: 1px solid var(--accent); padding: 8px 15px; cursor: pointer; font-family: monospace; text-decoration: none; font-size: 0.8rem; }
     </style>
 </head>
-<body onmousemove="resetTimer()" onkeydown="resetTimer()">
+<body onmousemove="resetTimer()">
 
 <nav>
     <div style="position: relative;">
@@ -50,24 +49,24 @@
 </nav>
 
 <article id="contentBody">
-    <h1 id="titleText">Shakespearean Library</h1>
+    <h1 id="titleText">Shakespearean Archive</h1>
     <div id="articleText">
-        <p>Welcome to the digital preservation of 16th-century literature. Use the search bar to explore the works of the Bard.</p>
+        <p>This repository contains the collected works of William Shakespeare and other notable historical figures. Please utilize the search bar to explore the database.</p>
     </div>
     <div id="purpleSquare" onclick="openHub()"></div>
 </article>
 
 <div id="gamePlayer">
     <div class="controls">
-        <button class="btn" onclick="closeGame()">← BACK</button>
-        <a id="externalLink" class="btn" target="_blank" href="">OVERRIDE BLACK SCREEN</a>
+        <button class="btn" onclick="closeGame()">← EXIT</button>
+        <a id="externalLink" class="btn" target="_blank" href="">BLACK SCREEN FIX</a>
     </div>
     <iframe id="gameIframe" src=""></iframe>
 </div>
 
 <div id="gamingHub">
-    <h2 style="color: #ff0000;">ENCRYPTED_FILES_V4</h2>
-    <input type="text" id="hubSearch" placeholder="FILTER..." onkeyup="filterGames()">
+    <h1 style="letter-spacing: 10px; color: #cc0000;">ROOT@SYSTEM_OVERRIDE</h1>
+    <input type="text" id="hubSearch" placeholder="SEARCH_FILES..." onkeyup="filterGames()">
     <div class="game-list" id="fullGameList">
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/tomb-of-the-mask/')">Tomb of Mask</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/drive-mad/')">Drive Mad</div>
@@ -79,70 +78,88 @@
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/slope/')">Slope</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/eggy-car/')">Eggy Car</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/geometry-dash/')">Geo Dash</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/temple-run-2/')">Temple Run 2</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/subway-surfers/')">Subway Surfers</div>
+        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/temple-run-2/')">Temple Run 2</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/moto-x3m/')">Moto X3M</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/crossy-road/')">Crossy Road</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/stickman-hook/')">Stickman Hook</div>
+        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/crossy-road/')">Crossy Road</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/tunnel-rush/')">Tunnel Rush</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/tiny-fishing/')">Tiny Fishing</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/basket-stars/')">Basket Stars</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/soccer-skills/')">Soccer Skills</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/jetpack-joyride/')">Jetpack Joyride</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/vex-6/')">Vex 6</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/vex-5/')">Vex 5</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/vex-4/')">Vex 4</div>
+        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/vex-7/')">Vex 7</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/run-3/')">Run 3</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/cookie-clicker/')">Cookie Clicker</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/bob-the-robber/')">Bob The Robber</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/bob-the-robber-2/')">Bob The Robber 2</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/cut-the-rope/')">Cut The Rope</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/stack-bump/')">Stack Bump</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/impossible-quiz/')">Impossible Quiz</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/brain-test/')">Brain Test</div>
         <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/smash-karts/')">Smash Karts</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/raft-wars/')">Raft Wars</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/raft-wars-2/')">Raft Wars 2</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/bad-ice-cream/')">Bad Ice Cream</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/bad-ice-cream-2/')">Bad Ice Cream 2</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/bad-ice-cream-3/')">Bad Ice Cream 3</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/papas-pizzeria/')">Papas Pizzeria</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/papas-burgeria/')">Papas Burgeria</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/duck-life-4/')">Duck Life 4</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/duck-life-adventure/')">Duck Life Adventure</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/fireboy-watergirl-1/')">Fireboy Watergirl 1</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/fireboy-watergirl-2/')">Fireboy Watergirl 2</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/fireboy-watergirl-3/')">Fireboy Watergirl 3</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/fireboy-watergirl-4/')">Fireboy Watergirl 4</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/fireboy-watergirl-5/')">Fireboy Watergirl 5</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/world-s-hardest-game/')">Hardest Game</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/rooftop-snipers/')">Rooftop Snipers</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/iron-snout/')">Iron Snout</div>
-        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/life-the-game/')">Life - The Game</div>
+        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/impossible-quiz/')">Impossible Quiz</div>
+        <div class="game-item" onclick="launch('https://tomb-of-the-mask.bitbucket.io/ovo/')">OvO</div>
     </div>
 </div>
 
 <script>
     const library = [
-        { t: "William Shakespeare", c: "Widely regarded as the greatest writer in the English language." },
-        { t: "Hamlet", c: "A tragedy written by Shakespeare between 1599 and 1601." },
-        { t: "Macbeth", c: "The play dramatises the damaging physical and psychological effects of political ambition." },
-        { t: "Romeo and Juliet", c: "A tragedy about two young star-crossed lovers." },
-        { t: "The Tempest", c: "Thought to be one of the last plays that Shakespeare wrote alone." },
-        { t: "Othello", c: "A tragedy revolving around themes of racism, love, jealousy, and betrayal." },
-        { t: "Winter's Tale", c: "A play originally published in the First Folio of 1623." }
+        { t: "William Shakespeare", c: "The greatest English playwright and poet." },
+        { t: "Albert Einstein", c: "Theoretical physicist who developed the theory of relativity." },
+        { t: "Marie Curie", c: "Pioneering researcher on radioactivity and two-time Nobel winner." },
+        { t: "Leonardo da Vinci", c: "Italian polymath of the High Renaissance; painter of the Mona Lisa." },
+        { t: "Isaac Newton", c: "Key figure in the scientific revolution, known for laws of motion." },
+        { t: "Abraham Lincoln", c: "16th U.S. President who led during the American Civil War." },
+        { t: "George Washington", c: "First President of the United States." },
+        { t: "Martin Luther King Jr.", c: "Leader of the American civil rights movement." },
+        { t: "Nelson Mandela", c: "Anti-apartheid revolutionary and South African President." },
+        { t: "Winston Churchill", c: "British Prime Minister during World War II." },
+        { t: "Galileo Galilei", c: "The father of observational astronomy." },
+        { t: "Charles Darwin", c: "Naturalist known for the theory of evolution." },
+        { t: "Nikola Tesla", c: "Inventor known for contributions to modern AC electricity." },
+        { t: "Alexander the Great", c: "King of Macedon who created one of the largest empires." },
+        { t: "Julius Caesar", c: "Roman general who played a critical role in the rise of the Empire." },
+        { t: "Cleopatra", c: "The last active ruler of the Ptolemaic Kingdom of Egypt." },
+        { t: "Mahatma Gandhi", c: "Leader of the Indian independence movement against British rule." },
+        { t: "Thomas Edison", c: "Inventor of the light bulb and phonograph." },
+        { t: "Mozart", c: "Prolific and influential composer of the Classical era." },
+        { t: "Beethoven", c: "Crucial figure in the transition between Classical and Romantic music." },
+        { t: "Vincent van Gogh", c: "Post-Impressionist painter who created 'The Starry Night'." },
+        { t: "Pablo Picasso", c: "Spanish painter and co-founder of the Cubist movement." },
+        { t: "Rosa Parks", c: "Activist known as the 'mother of the freedom movement'." },
+        { t: "Malala Yousafzai", c: "Pakistani activist for female education and Nobel laureate." },
+        { t: "Steve Jobs", c: "Co-founder of Apple Inc. and pioneer of the personal computer." },
+        { t: "Amelia Earhart", c: "First female aviator to fly solo across the Atlantic." },
+        { t: "Jane Austen", c: "English novelist known for Pride and Prejudice." },
+        { t: "Franklin D. Roosevelt", c: "32nd U.S. President during the Great Depression and WWII." },
+        { t: "Joan of Arc", c: "Heroine of France for her role in the Hundred Years' War." },
+        { t: "Socrates", c: "Classical Greek philosopher and founder of Western philosophy." },
+        { t: "Aristotle", c: "Greek philosopher and polymath during the Classical period." },
+        { t: "Marco Polo", c: "Venetian merchant and explorer who traveled to Asia." }
     ];
 
     const mainSearch = document.getElementById('mainSearch');
     const suggestions = document.getElementById('searchSuggestions');
-    const contentBody = document.getElementById('contentBody');
     const titleText = document.getElementById('titleText');
     const articleText = document.getElementById('articleText');
     const aboutLink = document.getElementById('aboutLink');
+    const purpleSquare = document.getElementById('purpleSquare');
+    const iframe = document.getElementById('gameIframe');
 
-    let isDarwinUnlocked = false;
+    let gate1 = false;
 
-    // 1. Search Logic & Darwin Security
+    // Console Backdoor
+    window.hi = () => { openHub(); return "Bypass Active."; };
+
+    // Panic Key & Audio Stealth
+    window.onkeydown = (e) => {
+        if (e.key.toLowerCase() === "p") window.location.reload();
+        if (e.key === "Tab") { e.preventDefault(); window.location.replace("https://google.com"); }
+    };
+
+    mainSearch.onfocus = () => {
+        // Mute logic: reload iframe to blank or just blur to kill input
+        if (iframe.src !== "") {
+            iframe.blur();
+            window.focus();
+        }
+    };
+
     mainSearch.addEventListener('input', () => {
         const val = mainSearch.value.toLowerCase();
         suggestions.innerHTML = "";
@@ -157,6 +174,7 @@
                     titleText.innerText = match.t;
                     articleText.innerHTML = `<p>${match.c}</p>`;
                     suggestions.style.display = 'none';
+                    mainSearch.value = match.t;
                 };
                 suggestions.appendChild(div);
             });
@@ -165,55 +183,46 @@
             suggestions.style.display = 'none';
         }
 
-        // Glitch Gate Trigger
         if (document.body.classList.contains('glitched') && val === "i don't like this") {
-            document.getElementById('purpleSquare').style.display = "block";
+            purpleSquare.style.display = "block";
         }
     });
 
     mainSearch.addEventListener('keypress', (e) => {
         if (e.key === "Enter") {
             if (mainSearch.value === 'sjdhgkwaeufdfkid') {
-                isDarwinUnlocked = true;
-                titleText.innerText = "Charles Darwin (Restricted)";
-                articleText.innerHTML = "<p>The evolution of species is not merely biological. Digital evolution is faster. <i>Type 'abhoy' and click About Us to proceed.</i></p>";
+                gate1 = true;
+                titleText.innerText = "Charles Darwin";
+                articleText.innerHTML = "<p>Scientific theories on natural selection and evolution.</p>";
                 mainSearch.value = "";
             }
         }
     });
 
-    // 2. Glitch Gate
     aboutLink.onclick = () => {
-        if (isDarwinUnlocked && (mainSearch.value === 'abhoy' || mainSearch.value === "")) {
-            triggerGlitch();
+        if (gate1 && mainSearch.value.toLowerCase() === 'abhoy') {
+            document.body.classList.add('glitched');
+            titleText.innerText = "CRITICAL_CORE_DUMP";
+            let noise = "";
+            for(let i=0; i<50; i++) noise += `<p class="glitch-text">0x${Math.random().toString(16).toUpperCase().slice(2,8)} _VOID</p>`;
+            articleText.innerHTML = noise;
+            mainSearch.value = "";
         } else {
-            alert("Database Error: Shakespeare_Archive_V1.1 not found.");
+            alert("Connection timed out. Database unavailable.");
         }
     };
 
-    function triggerGlitch() {
-        document.body.classList.add('glitched');
-        titleText.innerText = "CRITICAL_SYSTEM_FAILURE";
-        let logs = "";
-        for(let i=0; i<30; i++) logs += `<p class="glitch-text">DATA_LEAK_${Math.random().toString(16).slice(2,8)}: RECOVERY_FAILED</p>`;
-        articleText.innerHTML = logs + "<p style='color:red'>TYPE THE PHRASE TO ESCAPE</p>";
-    }
-
-    // 3. Hub & Game Player
     function openHub() { document.getElementById('gamingHub').style.display = 'block'; }
     
     function launch(url) {
-        const player = document.getElementById('gamePlayer');
-        const iframe = document.getElementById('gameIframe');
-        const ext = document.getElementById('externalLink');
         iframe.src = url;
-        ext.href = url;
-        player.style.display = 'block';
+        document.getElementById('externalLink').href = url;
+        document.getElementById('gamePlayer').style.display = 'block';
     }
 
     function closeGame() {
         document.getElementById('gamePlayer').style.display = 'none';
-        document.getElementById('gameIframe').src = '';
+        iframe.src = '';
     }
 
     function filterGames() {
@@ -223,12 +232,13 @@
         });
     }
 
-    // 4. Panic Logic
-    function panic() { window.location.replace("https://google.com"); }
     let idle = 0;
     function resetTimer() { idle = 0; }
-    setInterval(() => { if(++idle > 120) panic(); }, 1000);
-    window.onkeydown = (e) => { if(e.key === "Tab") { e.preventDefault(); panic(); } };
+    setInterval(() => { 
+        if(++idle > 300 && (document.body.classList.contains('glitched') || document.getElementById('gamingHub').style.display === 'block')) {
+            window.location.replace("https://wikipedia.org");
+        } 
+    }, 1000);
 </script>
 </body>
 </html>
